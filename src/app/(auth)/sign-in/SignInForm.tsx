@@ -8,7 +8,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { useToast } from '@/components/ui/use-toast';
 
 //validation using zod
 const authSchema = z.object({
@@ -17,7 +16,6 @@ const authSchema = z.object({
 });
 
 export default function SignInForm() {
-  const toast = useToast()
   const form = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),
     defaultValues: {
@@ -64,10 +62,10 @@ export default function SignInForm() {
           Sign in
         </Button>
       </form>
-      <div className='mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400'>
-      </div>
-      <p>If you don&apos;t have an account, please &nbsp;</p>
-      <Link href='/sign-up' className='text-blue-500 hover:underline'>Sign up</Link>
+        <div className='mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400'>
+        </div>
+        <p>If you don&apos;t have an account, please &nbsp;</p>
+        <Link href='/sign-up' className='text-blue-500 hover:underline'>Sign up</Link>
       </div>
     </Form>
     </>

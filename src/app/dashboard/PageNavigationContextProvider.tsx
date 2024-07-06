@@ -7,25 +7,39 @@ import { Dispatch, SetStateAction, createContext, useContext, useState } from "r
 type PageNavigationContext = {
   navigation: string,
   setNavigation: Dispatch<SetStateAction<string>>,
-  user_id: string | undefined,
+  user_id?: string,
+  user_role?: string,
 }
 
 const PageNavigationContext = createContext<PageNavigationContext | null>(null);
 
 export default function PageNavigationContextProvider({children}: {children: React.ReactNode}) {
-  const getUserID = useQuery({
-    queryKey: ['getUserID'],
+  const getUserInfo = useQuery({
+    queryKey: ['getUserInfo'],
     queryFn: async () => {
       const supabase = createClient();
       const {data} = await supabase.auth.getUser();
-      const userID = data.user?.id
-      return userID
+      if(data){
+        const userID = data.user?.id
+        const userRole = data.user?.user_metadata.role
+        return {
+          user_id: userID,
+          user_role: userRole,
+        }
+      }
+      else{
+        return {
+          user_id: '',
+          user_role: '',
+        }
+      }
     }
   })
-  const user_id = getUserID.data
+  const user_id = getUserInfo.data?.user_id
+  const user_role = getUserInfo.data?.user_role
   const [navigation, setNavigation] = useState("")
   return (
-    <PageNavigationContext.Provider value={{navigation, setNavigation, user_id}}>
+    <PageNavigationContext.Provider value={{navigation, setNavigation, user_id, user_role}}>
       {children}
     </PageNavigationContext.Provider>
   )

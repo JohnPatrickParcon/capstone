@@ -7,6 +7,12 @@ import CapstoneUploadComponent from "@/components/capstoneUpload/CapstoneUploadC
 
 export default function MainContentStudent() {  
   const { navigation } =  usePageNavigationContext();
+
+  if(navigation === "User"){
+    return(
+      <h1>User</h1>
+    )
+  }
   
   if(navigation === "Capstone"){
     return(

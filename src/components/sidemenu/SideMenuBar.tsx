@@ -6,13 +6,9 @@ import { logout } from "./actions"
 import { useState } from "react"
 import { usePageNavigationContext } from "@/app/dashboard/PageNavigationContextProvider"
 
-export default function SideMenuBar({
-  user_role,
-}:{
-  user_role: string,
-}) {
+export default function SideMenuBar() {
   const [buttonSpinner, setButtonSpinner] = useState(false)
-  const { setNavigation } = usePageNavigationContext()
+  const { setNavigation, user_role } = usePageNavigationContext()
   
   function logouthandler() {
     setButtonSpinner(true)
@@ -24,6 +20,12 @@ export default function SideMenuBar({
       <>
       <aside className="border-r bg-zinc-300 flex h-full gap-2">
       <nav className="flex flex-col items-start gap-2 px-2 py-4 text-sm font-medium lg:px-4">
+      <Button 
+          onClick={() => {setNavigation("User")}}
+          variant={'ghost'}>
+            <Book className="mr-2 h-6 w-6 p-1" />
+            User
+        </Button>
         <Button 
           onClick={() => {setNavigation("Capstone")}}
           variant={'ghost'}>
